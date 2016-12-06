@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   has_many :points
 
   validates :first_name, presence: true
@@ -26,4 +27,6 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+
 end
