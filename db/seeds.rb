@@ -37,3 +37,16 @@ TOTAL_POINTS.times.each_slice(SLICE_SIZE).each_with_index do |ids, index|
   puts "Inserted #{(index + 1)*SLICE_SIZE} of #{TOTAL_POINTS} total points..."
   Point.import(fields, data, :validate => false, :timestamps => false)
 end
+
+
+#After putting everything insdie , run one time to setup the score
+  count = 1
+  User.all.each do |user|
+
+    puts "add point number: #{count} to User id:#{user.id}"
+    points = Point.where(user_id: user.id).calculate(:sum,:value)
+    user.update(count_points: points)
+    count += 1
+
+  end
+

@@ -34,6 +34,7 @@ describe User do
     let(:user) { create(:user_with_points, :total => 500, :points => 2) }
 
     it 'returns the total points for the user' do
+
       expect(user.total_points).to eq 500
     end
   end
@@ -48,4 +49,20 @@ describe User do
       expect(user.full_name).to eq 'John Doe'
     end
   end
+
+
+  describe ".page" do
+    let (:user) {
+      200.times do
+         create(:user_with_points, :total => rand(1...500), :points => rand(1...10))
+      end
+    }
+      # let (:user) {create}
+    it "returns the user amount of the page" do
+      user
+    expect(User.by_total_points.page(1).count).to eq 50
+    expect(User.by_total_points.page(3).count).to eq 50
+    end
+  end
+
 end
